@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import { Products } from "./components/Products";
+import { useFilters } from "./hooks/useFilters";
+import { CartProvider } from "./context/cart";
+import { Header } from "./components/Header";
+import { Cart } from "./components/Cart";
+import { IS_DEVELOPMENT } from "./config.js";
+import { Footer } from "./components/Footer";
+import useSWR from "swr";
+import { getProducts } from "./services/products";
+import { Loader } from "./components/Loader";
 
 function App() {
+  const { data, isLoading, error } = useSWR("products", () => getProducts());
+
+  const { filterProducts } = useFilters();
+  const filteredProducts = filterProducts(data?.products);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {error && <div>failed to load</div>}
+      <CartProvider>
+        {isLoading && <Loader />}
+        {!isLoading && !error && (
+          <>
+            <Header />
+            <Cart />
+            <Products products={filteredProducts} />
+          </>
+        )}
+        {IS_DEVELOPMENT && <Footer />}
+      </CartProvider>
+    </>
   );
 }
 
