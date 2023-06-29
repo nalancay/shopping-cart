@@ -1,8 +1,4 @@
-1. Link website
-
-[https://nalancay-shopping-cart.netlify.app/](https://nalancay-shopping-cart.netlify.app/).
-
-2. Ecommerce - shopping cart
+1. Ecommerce - shopping cart
 
 - Display a list of products
 - Add a filter by category
@@ -11,7 +7,7 @@
 - Remove products from the cart.
 - Modify the amount of products in the cart.
 
-3. Technical specification
+2. Technical specification
 
 - Use of swr library to obtain data from the api, isLoading and error.
 - Using useContext to avoid passing unnecessary props and useReducer to handle global states.
