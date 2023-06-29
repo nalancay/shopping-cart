@@ -1,7 +1,7 @@
-const isProduction = import.meta.env?.PROD;
+import { IS_DEVELOPMENT } from "../config";
 const URL_IN_PRODUCTION = "https://nalancay-shopping-cart.netlify.app";
 const URL_IN_LOCAL = "http://localhost:3000";
-const API_URL = isProduction ? URL_IN_PRODUCTION : URL_IN_LOCAL;
+const API_URL = IS_DEVELOPMENT ? URL_IN_LOCAL : URL_IN_PRODUCTION;
 
 export const getProducts = async () => {
   try {
